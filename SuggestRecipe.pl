@@ -12,16 +12,14 @@ getIngredients([Ingredient|Tail]) :-
 
 getIngredients([]).
 
-findRecipe(MyList, HighMatchNum, K) :-
-    aggregate_all(max(N, Key),
-              (   recipe(Key, List),
-                  myIntersection(MyList, List, N)
-              ),
-              max(HighMatchNum, K)).
+findRecipe(IngredientList, HighMatchNum, Recipe) :-
+    aggregate_all(max(N, Key), 
+        (recipe(Key, List), intersectionLength(IngredientList, List, N)),
+        max(HighMatchNum, Recipe)).
 
-myIntersection(MyList, List, N) :-
-    intersection(MyList, List, L),
-    length(L, N).
+intersectionLength(List1, List2, N) :-
+    intersection(List1, List2, L),
+    length(L, N). %
 
 % Knowledge base
 
