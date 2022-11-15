@@ -36,7 +36,7 @@ recipe(('https://www.allrecipes.com/recipe/9487/pecan-pie/'),
     [sugar, salt, 'corn syrup', butter, cornstarch, egg, vanilla, pecans, 'pie shell']).
 
 recipe(('https://www.allrecipes.com/recipe/138490/grilled-pepper-basil-and-turkey-roulade-with-basil-sour-cream-sauce/'),
-    ['bell pepper', lemon, sour cream, basil, 'turkey breast']).
+    ['bell pepper', lemon, 'sour cream', basil, 'turkey breast']).
 
 recipe(('https://www.allrecipes.com/recipe/24174/garys-stuffed-mushrooms/'),
     [mushroom, 'stuffing mix', 'cream cheese', crab, butter, garlic]).
