@@ -1,18 +1,34 @@
-suggest(Recipe) :- 
-    write('What ingredient would you like to use?: '), read(Ingredient),
-    write('What tool would you like to use?: '), read(Tool),
-    write('What level of difficulty would you like?: '), read(Difficulty),
-    write('How much time do you have?: '), read(Time),
-    write('How many do you need to serve?: '), read(Servings),
-    recipe(Recipe, Ingredient, Tool, Difficulty, Time, Servings).
+suggestRecipe(R) :-
+    getIngredients(IngredientList),
+    findRecipe(IngredientList, C, R),
+    C =\= 0.
 
-recipe('https://www.allrecipes.com/recipe/166160/juicy-thanksgiving-turkey/', 
-    I, T, D, Time, S) :- 
-    (I = broth ; I = carrot ; I = celery ; I = champagne ; I = 'lemon-pepper' ;
-     I = onion ; I = orange ; I = parsley ; I = rosemary ; I = sage ; 
-     I = salt ; I = thyme ; I = turkey),
-    (T = bowl ; T = 'chopping board' ; T = knife ; T = oven ; 
-     T = 'roasting pan' ; T = 'tin foil'),
-     D = hard,
-     Time >= 210,
-     S =< 10.
+
+getIngredients([Ingredient|Tail]) :-
+    write('Enter an ingredient or stop to stop: '), 
+    read(Ingredient),
+    dif(Ingredient, stop),
+    getIngredients(Tail).
+
+getIngredients([]).
+
+findRecipe(MyList, HighMatchNum, K) :-
+    aggregate_all(max(N, Key),
+              (   recipe(Key, List),
+                  myIntersection(MyList, List, N)
+              ),
+              max(HighMatchNum, K)).
+
+myIntersection(MyList, List, N) :-
+    intersection(MyList, List, L),
+    length(L, N).
+
+% Knowledge base
+
+recipe(('https://www.allrecipes.com/recipe/166160/juicy-thanksgiving-turkey/'),
+    [broth, carrot, celery, champagne, 'lemon pepper', onion, orange, parsley,
+     rosemary, sage, salt, thyme, turkey]).
+
+recipe(('https://www.allrecipes.com/recipe/13647/grandma-winnies-turkey-stuffing/'),
+    [butter, onion, celery, 'bread cubes', seasoning, mushroom, egg, 
+     'chicken stock']).
