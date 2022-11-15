@@ -16,11 +16,10 @@ findRecipe(IngredientList, HighMatchNum, Recipe) :-
     aggregate_all(max(N, Key), 
         (recipe(Key, List), intersectionLength(IngredientList, List, N)),
         max(HighMatchNum, Recipe)).
-        
+
 intersectionLength(List1, List2, Length) :-
     intersection(List1, List2, List3),
     length(List3, Length).
->>>>>>> aa081fe035aa2aa4268d832bf510b34893a33f02
 
 % Knowledge base
 
